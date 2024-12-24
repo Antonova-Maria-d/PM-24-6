@@ -1,16 +1,14 @@
 import pathlib
 import csv
 def load_table(file):
-    table = {}
+    table = []
     test = pathlib.Path(file)
     if not test.is_file():
         raise FileNotFoundError("Файл не найден.")
      with open(file, 'r', newline = '', encoding = 'utf-8') as csvfile: 
-    i = csv.DictReader(csvfile)
+    i = csv.reader(csvfile)
     for row in i:
-        for key in row:
-            if key not in table: table[key] = []
-                table[key].append(row[key])
+        table.append(row)
     return table
 
 def save_table(table, file):
