@@ -301,8 +301,43 @@ def compare_columns(table, col_1, col_2, operation):
     elif operation == 'ne':
         result = [a != b for a, b in zip(column_1, column_2)]
     return result
+    
+def eq(table, col_1, col_2):
+    column_1 = [row[col_1] for row in table]
+    column_2 = [row[col_2] for row in table]
+    result = [a == b for a, b in zip(column_1, column_2)]
+    return result
 
+def gr(table, col_1, col_2):
+    column_1 = [row[col_1] for row in table]
+    column_2 = [row[col_2] for row in table]
+    result = [a > b for a, b in zip(column_1, column_2)]
+    return result
 
+def ls(table, col_1, col_2):
+    column_1 = [row[col_1] for row in table]
+    column_2 = [row[col_2] for row in table]
+    result = [a < b for a, b in zip(column_1, column_2)]
+    return result
+
+def ge(table, col_1, col_2):
+    column_1 = [row[col_1] for row in table]
+    column_2 = [row[col_2] for row in table]
+    result = [a  >= b for a, b in zip(column_1, column_2)]
+    return result
+
+def le(table, col_1, col_2):
+    column_1 = [row[col_1] for row in table]
+    column_2 = [row[col_2] for row in table]
+    result = [a  <= b for a, b in zip(column_1, column_2)]
+    return result
+
+def ne(table, col_1, col_2):
+    column_1 = [row[col_1] for row in table]
+    column_2 = [row[col_2] for row in table]
+    result = [a  != b for a, b in zip(column_1, column_2)]
+    return result
+    
 def filter_rows(bool_list, table, by_number = False):
     filtered_table = table.copy() if by_number else table
     index = 0
