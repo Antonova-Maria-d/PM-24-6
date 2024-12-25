@@ -9,7 +9,7 @@ from datetime import datetime
 def load_table(*files):
     tables = []
     titles = None
-    files = list(file)
+    files = list(files)
     for file in files:    
         test = pathlib.Path(file)
         if not test.is_file():
@@ -65,7 +65,7 @@ def save_table(table, file):
     else:
         raise ValueError("Непредвиденное расширение файла.")
 
-def get_rows_by_number(start, stop=None, copy_table=False):
+def get_rows_by_number(table, start, stop=None, copy_table=False):
     if stop is None:
         stop = start
     elif start > stop:
@@ -78,7 +78,7 @@ def get_rows_by_number(start, stop=None, copy_table=False):
         return table[start:stop]
 
 
-def get_rows_by_index(*vals, copy_table = False):
+def get_rows_by_index(table, *vals, copy_table = False):
     try:
         new_table = []
         for row in table:
@@ -91,7 +91,7 @@ def get_rows_by_index(*vals, copy_table = False):
     except Exception as e:
         print("Произошла ошибка при получении данных.")
         
-def get_column_types(by_number=True):
+def get_column_types(table, by_number=True):
     column_types = {}
     for c_num, c_name in enumerate(table[0]):
         if by_number:
@@ -110,7 +110,7 @@ def get_column_types(by_number=True):
             raise ValueError("Непредвиденный вид данных.")
     return column_types
 
-def set_column_types(types_dict, by_number = True):
+def set_column_types(table, types_dict, by_number = True):
     if types_dict == {}:
         raise ValueError("Пустой словарь.")
     for c_num, c_name in types_dict.items():
@@ -120,7 +120,7 @@ def set_column_types(types_dict, by_number = True):
             table[0][c_name] = types_dict[c_num][c_name]
     return table
 
-def get_values(column = 0):
+def get_values(table, column = 0):
     values = []
     if isinstance(column, int):
         for row in table:
@@ -137,7 +137,7 @@ def get_values(column = 0):
         raise ValueError("Тип столбца не int, str, float, bool")
     return values
 
-def get_value(column = 0):
+def get_value(data, column = 0):
     table = data[1]
     if isinstance(column, int):
         answer = table[column]
@@ -146,7 +146,7 @@ def get_value(column = 0):
         answer = table[column]
     return (answer)
 
-def get_value(column = 0):
+def get_value(table, column = 0):
     value = table[0][column]
     if isinstance(value, (int, str, float, bool)):
         return value
@@ -154,7 +154,7 @@ def get_value(column = 0):
         raise ValueError("Тип столбца не int, str, float, bool.")
 
 
-def set_values(values, column = 0):
+def set_values(table, values, column = 0):
     if isinstance(column, int):
         for i, row in range(len(values)):
             row[column] = values[i]
@@ -166,7 +166,7 @@ def set_values(values, column = 0):
         raise ValueError("введённые данные некорректны.")
     return table
 
-def set_value(value, column = 0):
+def set_value(table, value, column = 0):
     if isinstance(column, int):
         table[0][column] = value
     elif isinstance(column, str):
